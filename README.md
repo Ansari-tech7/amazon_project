@@ -1,278 +1,224 @@
+# 🎧 Amazon Music Clustering
 
-# Amazon_music_clustering
-🎵 Amazon Music Clustering (Unsupervised Learning)
+## 📌 Project Overview
 
-📌 Project Overview
+With millions of songs available on music platforms, manually categorizing songs into genres is inefficient and time-consuming. This project uses **Unsupervised Machine Learning (Clustering)** to automatically group similar songs based on their audio features.
 
-With millions of songs available on music streaming platforms like Amazon Music, manually categorizing tracks into genres or moods is impractical. This project applies unsupervised machine learning techniques to automatically group songs based on their audio characteristics.
-
-Using clustering algorithms, songs with similar sound profiles are grouped together, enabling better playlist creation, music recommendation, and audio-based analysis — all without using any genre labels.
-
+The goal is to identify patterns in music and group songs into meaningful clusters such as **chill, party, or instrumental**, without using predefined labels.
 
 ---
 
-🎯 Problem Statement
+## 🎯 Problem Statement
 
-Manual genre classification does not scale for large music catalogs. The objective of this project is to automatically cluster songs based on audio features such as energy, danceability, tempo, and acousticness, uncovering hidden patterns that reflect musical similarity.
+Music streaming platforms handle massive song libraries. Assigning genres manually is not scalable.
 
+This project solves that problem by:
 
----
-
-🧠 Business Use Cases
-
-🎶 Personalized Playlist Curation
-
-Group similar-sounding songs to automatically generate playlists like Party, Chill, or Workout.
-
-🔍 Improved Song Discovery
-
-Recommend new tracks to users based on similarity to songs they already enjoy.
-
-🎤 Artist & Market Analysis
-
-Identify competitive tracks and analyze music trends based on audio characteristics.
-
-📊 Market Segmentation
-
-Understand listening behavior and optimize promotions or recommendations.
-
+* Analyzing audio features of songs
+* Grouping similar songs together
+* Creating clusters that represent music styles or moods
 
 ---
 
-🛠️ Skills & Technologies Used
+## 💡 Why I Built This Project
 
-Python
+I built this project to:
 
-Pandas & NumPy – Data handling
-
-scikit-learn – Scaling, PCA, Clustering
-
-Matplotlib & Seaborn – Visualization
-
-Unsupervised Machine Learning
-
-K-Means Clustering
-
-PCA (Dimensionality Reduction)
-
-Data Storytelling
-
-
+* Understand how **unsupervised learning** works
+* Learn **real-world data preprocessing**
+* Explore how platforms like Spotify or Amazon recommend songs
+* Practice clustering techniques like **K-Means**
 
 ---
 
-📂 Dataset Description
+## 🚀 Business Use Cases
 
-File Name: single_genre_artists.csv
+### 🎵 Personalized Playlist Creation
 
-Audio Features Used:
+Automatically group similar songs to create playlists.
 
-danceability
+### 🔍 Song Recommendation
 
-energy
+Suggest songs with similar sound characteristics.
 
-loudness
+### 🎤 Artist Analysis
 
-speechiness
+Help artists understand where their music fits.
 
-acousticness
+### 📊 Market Segmentation
 
-instrumentalness
-
-liveness
-
-valence
-
-tempo
-
-duration_ms
-
-
-Ignored Columns:
-
-Track names, artist names, IDs, genres, popularity, and dates were excluded from clustering to avoid bias.
-
+Analyze listener preferences and trends.
 
 ---
 
-🔄 Project Workflow (Step-by-Step)
+## 📂 Dataset Information
 
-1️⃣ Data Loading & Exploration
+The dataset contains audio features of songs such as:
 
-Loaded dataset using Pandas
+* danceability
+* energy
+* loudness
+* speechiness
+* acousticness
+* instrumentalness
+* liveness
+* valence
+* tempo
+* duration_ms
 
-Inspected shape, data types, and missing values
+It also includes text fields like:
 
-Verified all selected features were numeric
+* song name
+* artist name
+* genres (used for interpretation only)
 
+---
 
-2️⃣ Feature Selection
+## 🛠️ Technologies Used
 
-Only audio features that describe rhythm, mood, and energy were selected:
+* Python
+* Pandas
+* NumPy
+* Matplotlib / Seaborn
+* Scikit-learn
 
+---
+
+## ⚙️ Project Workflow
+
+### 1. Data Preprocessing
+
+* Removed duplicates
+* Dropped unnecessary columns (IDs, names, text fields)
+* Cleaned and formatted data
+
+---
+
+### 2. Feature Selection
+
+Selected only meaningful audio features:
+
+```python
 danceability, energy, loudness, speechiness,
 acousticness, instrumentalness, liveness,
-valence, tempo, duration_ms
+valence, tempo
+```
 
-These features are sufficient to capture how a song sounds.
-
-
----
-
-3️⃣ Data Normalization
-
-Clustering is distance-based, so features were scaled using StandardScaler to ensure equal importance.
-
+👉 These features represent **music characteristics like mood, rhythm, and energy**
 
 ---
 
-4️⃣ Clustering Technique (K-Means)
+### 3. Feature Scaling
 
-Why K-Means?
+Used **StandardScaler** to normalize data.
 
-Simple and effective
+#### Why?
 
-Works well with scaled numeric data
-
-Easy to interpret
-
-
-Choosing the Best Number of Clusters
-
-Elbow Method used to analyze inertia
-
-Silhouette Score used to evaluate cluster quality
-
-
-📌 Best k = 2 (Silhouette Score ≈ 0.70)
-
+Because clustering is distance-based and features have different ranges.
 
 ---
 
-5️⃣ Cluster Evaluation
+### 4. Clustering (K-Means)
 
-Metric	Result	Interpretation
+* Applied **K-Means algorithm**
+* Tested multiple values of K
+* Selected best K using:
 
-Silhouette Score	~0.70	Excellent separation
-Davies–Bouldin Index	~0.70	Good clustering quality
-Inertia	Reported	Used in elbow method
+#### 📊 Silhouette Score
 
+Measures how well clusters are separated.
 
+👉 Best result:
 
----
-
-6️⃣ Cluster Interpretation
-
-Mean feature values were computed per cluster to understand musical characteristics.
-
-🎉 Cluster 1 – Energetic / Dance Tracks
-
-High energy
-
-High danceability
-
-Faster tempo
-
-Higher valence (happy mood)
-
-
-Use case: Party, workout, upbeat playlists
-
-🌙 Cluster 0 – Calm / Acoustic / Speech-Oriented
-
-High acousticness
-
-Higher speechiness
-
-Lower energy
-
-Slower tempo
-
-
-Use case: Chill, podcast-like, relaxing playlists
-
+```
+k = 2 (highest score)
+```
 
 ---
 
-7️⃣ Visualization
+### 5. Cluster Evaluation
 
-The following visualizations were created:
+Used:
 
-PCA Scatter Plot – 2D visualization of clusters
-
-Bar Charts – Average feature values per cluster
-
-Heatmap – Feature dominance across clusters
-
-Distribution Plots – Feature spread within clusters
-
-
-These plots clearly show separation and cluster characteristics.
-
+* Silhouette Score
+* Inertia (Elbow Method)
 
 ---
 
-8️⃣ Final Output & Export
+### 6. Cluster Interpretation
 
-Cluster labels added to original dataset
+Analyzed average values of features per cluster.
 
-Songs grouped by cluster for analysis
+#### Example:
 
-Final dataset exported as:
-
-
-amazon_music_clustered_songs.csv
-
+* Cluster 0 → Low energy, high acousticness → Chill songs
+* Cluster 1 → High energy, high tempo → Party songs
 
 ---
 
-✅ Project Results
+### 7. Visualization
 
-By the end of this project, we successfully:
-
-✔ Generated distinct clusters of songs based on audio similarity
-✔ Visualized and interpreted musical characteristics of each cluster
-✔ Demonstrated how clustering can support recommendation systems and playlist generation
-
+* PCA used for dimensionality reduction
+* Scatter plots for cluster visualization
+* Bar charts and heatmaps for analysis
 
 ---
 
-📦 Project Deliverables
+## 📊 Results
 
-Jupyter Notebook (.ipynb) with:
+* Successfully grouped songs into meaningful clusters
+* Identified different music styles based on audio features
+* Visualized clusters using PCA
+* Derived insights like:
 
-Preprocessing
-
-Clustering
-
-Evaluation
-
-Visualization
-
-
-Final clustered CSV file
-
-This detailed README documentation
-
-
+  * Chill vs Party music
+  * Acoustic vs High-energy songs
 
 ---
 
-🚀 Future Improvements
+## 🧠 Key Learnings
 
-Add Streamlit app for interactive exploration
-
-Try DBSCAN / Hierarchical clustering for comparison
-
-Integrate user listening history
-
-Deploy as a recommendation microservice
-
-
+* Importance of **feature selection**
+* Role of **data scaling in clustering**
+* Understanding **unsupervised learning**
+* Handling real-world messy data
+* Interpreting clusters without labels
 
 ---
 
-👤 Author
+## 📁 Project Structure
 
-Mohammed Ansari
-Aspiring Data Scientist | Machine Learning Enthusiast
+```
+Amazon-Music-Clustering/
+│
+├── data/
+├── notebooks/
+├── src/
+├── outputs/
+├── README.md
+```
+
+---
+
+## 🔮 Future Improvements
+
+* Build a recommendation system
+* Deploy using Streamlit
+* Use advanced clustering (DBSCAN, Hierarchical)
+* Improve feature engineering
+
+---
+
+## 🙌 Conclusion
+
+This project demonstrates how machine learning can automatically discover patterns in music data and group songs based on their sound characteristics.
+
+It can be extended to real-world applications like recommendation systems and playlist generation.
+
+---
+
+## 👤 Author
+
+**Mohammed Ansari**
+
+---
